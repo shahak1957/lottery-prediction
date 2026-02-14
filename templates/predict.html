@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}חיזויים - חיזוי לוטו ישראלי{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>🎯 חיזויי לוטו</h2>
+    <p>חיזויים מבוססי נתונים עם אסטרטגיות שונות</p>
+</div>
+
+<div class="prediction-controls">
+    <form action="{{ url_for('predict') }}" method="get" style="display: inline-block;">
+        <label for="num">מספר חיזויים:</label>
+        <select name="num" id="num" onchange="this.form.submit()">
+            <option value="3">3</option>
+            <option value="5" selected>5</option>
+            <option value="7">7</option>
+            <option value="10">10</option>
+        </select>
+    </form>
+</div>
+
+<div class="predictions-container">
+    {% for prediction in predictions %}
+    <div class="prediction-card">
+        <div class="prediction-header">
+            <h3>{{ loop.index }}. {{ prediction.strategy }}</h3>
+            <p class="strategy-desc">{{ prediction.description }}</p>
+        </div>
+        <div class="prediction-body">
+            <div class="prediction-numbers">
+                <label>מספרים מומלצים:</label>
+                <div class="lottery-numbers">
+                    {% for num in prediction.numbers %}
+                    <span class="number">{{ num }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="prediction-strong">
+                <label>מספר חזק:</label>
+                <span class="number strong">{{ prediction.strong_number }}</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="disclaimer-box">
+    <h3>⚠️ הערה חשובה</h3>
+    <p>החיזויים מבוססים על ניתוח סטטיסטי של נתונים היסטוריים. תוצאות הלוטו הן אקראיות לחלוטין ואין שום ערובה לדיוק החיזויים. השתמשו במידע זה למטרות בידור בלבד.</p>
+</div>
+
+<div class="action-buttons">
+    <a href="{{ url_for('predict') }}" class="btn btn-primary">🔄 צור חיזויים חדשים</a>
+    <a href="{{ url_for('statistics') }}" class="btn btn-secondary">📊 צפה בסטטיסטיקות</a>
+</div>
+{% endblock %}

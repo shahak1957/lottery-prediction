@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}הוספת תוצאה - חיזוי לוטו ישראלי{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>➕ הוספת תוצאת הגרלה חדשה</h2>
+    <p>הזן את פרטי הגרלה האחרונה</p>
+</div>
+
+<div class="form-container">
+    <form method="POST" action="{{ url_for('add_result') }}" class="lottery-form">
+        <div class="form-group">
+            <label for="draw_number">מספר הגרלה:</label>
+            <input type="number" id="draw_number" name="draw_number" 
+                   value="{{ suggested_draw }}" required min="1">
+            <small>מספר ההגרלה המוצע: {{ suggested_draw }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="draw_date">תאריך הגרלה:</label>
+            <input type="date" id="draw_date" name="draw_date" 
+                   value="{{ today }}" required>
+        </div>
+
+        <div class="form-section">
+            <h3>6 המספרים הזוכים (1-37)</h3>
+            <div class="numbers-input">
+                <input type="number" name="number1" min="1" max="37" required placeholder="1">
+                <input type="number" name="number2" min="1" max="37" required placeholder="2">
+                <input type="number" name="number3" min="1" max="37" required placeholder="3">
+                <input type="number" name="number4" min="1" max="37" required placeholder="4">
+                <input type="number" name="number5" min="1" max="37" required placeholder="5">
+                <input type="number" name="number6" min="1" max="37" required placeholder="6">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>המספר החזק (1-7)</h3>
+            <div class="strong-input">
+                <input type="number" name="strong_number" min="1" max="7" required placeholder="מספר חזק">
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">💾 הוסף תוצאה</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">ביטול</a>
+        </div>
+    </form>
+</div>
+
+<div class="info-box">
+    <h3>ℹ️ הנחיות</h3>
+    <ul>
+        <li>יש להזין מספר הגרלה ייחודי</li>
+        <li>המספרים הזוכים חייבים להיות בין 1 ל-37</li>
+        <li>כל המספרים חייבים להיות שונים זה מזה</li>
+        <li>המספר החזק חייב להיות בין 1 ל-7</li>
+    </ul>
+</div>
+{% endblock %}

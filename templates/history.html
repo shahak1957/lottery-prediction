@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}היסטוריה - חיזוי לוטו ישראלי{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>📜 היסטוריית הגרלות</h2>
+    <p>סך כל {{ total_results }} הגרלות במאגר</p>
+</div>
+
+{% if results %}
+<div class="results-table">
+    <table>
+        <thead>
+            <tr>
+                <th>מספר הגרלה</th>
+                <th>תאריך</th>
+                <th>מספרים</th>
+                <th>מספר חזק</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>#{{ result[0] }}</td>
+                <td>{{ result[1] }}</td>
+                <td>
+                    <div class="lottery-numbers">
+                        <span class="number">{{ result[2] }}</span>
+                        <span class="number">{{ result[3] }}</span>
+                        <span class="number">{{ result[4] }}</span>
+                        <span class="number">{{ result[5] }}</span>
+                        <span class="number">{{ result[6] }}</span>
+                        <span class="number">{{ result[7] }}</span>
+                    </div>
+                </td>
+                <td>
+                    <span class="number strong">{{ result[8] }}</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination">
+    {% if page > 1 %}
+    <a href="{{ url_for('history', page=1) }}" class="btn btn-pagination">ראשון</a>
+    <a href="{{ url_for('history', page=page-1) }}" class="btn btn-pagination">הקודם</a>
+    {% endif %}
+    
+    <span class="page-info">עמוד {{ page }} מתוך {{ total_pages }}</span>
+    
+    {% if page < total_pages %}
+    <a href="{{ url_for('history', page=page+1) }}" class="btn btn-pagination">הבא</a>
+    <a href="{{ url_for('history', page=total_pages) }}" class="btn btn-pagination">אחרון</a>
+    {% endif %}
+</div>
+{% else %}
+<p class="no-data">אין תוצאות זמינות במאגר. יש להוסיף נתונים.</p>
+{% endif %}
+
+<div class="action-buttons">
+    <a href="{{ url_for('add_result') }}" class="btn btn-success">➕ הוסף תוצאה חדשה</a>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">🏠 חזרה לדף הבית</a>
+</div>
+{% endblock %}

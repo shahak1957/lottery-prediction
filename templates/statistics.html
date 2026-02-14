@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}סטטיסטיקות - חיזוי לוטו ישראלי{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>📈 סטטיסטיקות והסתברויות</h2>
+    <p>ניתוח מקיף של {{ stats.total_draws }} הגרלות</p>
+</div>
+
+<div class="stats-section">
+    <h3>🔥 מספרים חמים (מופיעים הכי הרבה)</h3>
+    <p class="section-desc">מספרים שהופיעו הכי הרבה פעמים בהגרלות האחרונות</p>
+    <div class="numbers-grid">
+        {% for num, freq in stats.hot_numbers %}
+        <div class="stat-number hot">
+            <span class="number">{{ num }}</span>
+            <span class="frequency">{{ freq }} פעמים</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="stats-section">
+    <h3>❄️ מספרים קרים (מופיעים הכי פחות)</h3>
+    <p class="section-desc">מספרים שהופיעו הכי פחות פעמים בהגרלות</p>
+    <div class="numbers-grid">
+        {% for num, freq in stats.cold_numbers %}
+        <div class="stat-number cold">
+            <span class="number">{{ num }}</span>
+            <span class="frequency">{{ freq }} פעמים</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="stats-section">
+    <h3>⏰ מספרים מאוחרים (לא הופיעו הכי זמן רב)</h3>
+    <p class="section-desc">מספרים שלא הופיעו בהגרלות האחרונות</p>
+    <div class="numbers-grid">
+        {% for num, gap in stats.overdue_numbers %}
+        <div class="stat-number overdue">
+            <span class="number">{{ num }}</span>
+            <span class="frequency">לפני {{ gap }} הגרלות</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="stats-section">
+    <h3>💪 מספרים חזקים</h3>
+    <p class="section-desc">תדירות של המספרים החזקים (1-7)</p>
+    <div class="numbers-grid">
+        {% for num, freq in stats.strong_number_freq %}
+        <div class="stat-number strong-stat">
+            <span class="number strong">{{ num }}</span>
+            <span class="frequency">{{ freq }} פעמים</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="action-buttons">
+    <a href="{{ url_for('predict') }}" class="btn btn-primary">🎯 צור חיזויים</a>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">🏠 חזרה לדף הבית</a>
+</div>
+{% endblock %}

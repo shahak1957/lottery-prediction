@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}דף הבית - חיזוי לוטו ישראלי{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h2>ברוכים הבאים למערכת חיזוי לוטו ישראלי</h2>
+    <p>מערכת מתקדמת לניתוח נתונים היסטוריים ויצירת חיזויים מבוססי-נתונים עבור הגרלות הלוטו הישראלי</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>{{ total_draws }}</h3>
+        <p>סך כל ההגרלות במאגר</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ latest_draw or 'אין' }}</h3>
+        <p>מספר הגרלה אחרון</p>
+    </div>
+    <div class="stat-card">
+        <h3>10</h3>
+        <p>אלגוריתמי חיזוי שונים</p>
+    </div>
+</div>
+
+<section class="recent-results">
+    <h2>תוצאות אחרונות</h2>
+    {% if recent_results %}
+        <div class="results-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>מספר הגרלה</th>
+                        <th>תאריך</th>
+                        <th>מספרים</th>
+                        <th>מספר חזק</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in recent_results %}
+                    <tr>
+                        <td>#{{ result[0] }}</td>
+                        <td>{{ result[1] }}</td>
+                        <td>
+                            <div class="lottery-numbers">
+                                <span class="number">{{ result[2] }}</span>
+                                <span class="number">{{ result[3] }}</span>
+                                <span class="number">{{ result[4] }}</span>
+                                <span class="number">{{ result[5] }}</span>
+                                <span class="number">{{ result[6] }}</span>
+                                <span class="number">{{ result[7] }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="number strong">{{ result[8] }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="no-data">אין תוצאות זמינות. יש להוסיף נתונים למאגר.</p>
+    {% endif %}
+</section>
+
+<section class="quick-actions">
+    <h2>פעולות מהירות</h2>
+    <div class="button-grid">
+        <a href="{{ url_for('predict') }}" class="btn btn-primary">📊 צור חיזויים חדשים</a>
+        <a href="{{ url_for('statistics') }}" class="btn btn-secondary">📈 צפה בסטטיסטיקות</a>
+        <a href="{{ url_for('add_result') }}" class="btn btn-success">➕ הוסף תוצאה חדשה</a>
+    </div>
+</section>
+
+<section class="how-it-works">
+    <h2>איך זה עובד?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>📊 ניתוח נתונים</h3>
+            <p>המערכת מנתחת למעלה מ-3 שנים של נתונים היסטוריים מהגרלות הלוטו</p>
+        </div>
+        <div class="feature-card">
+            <h3>🎯 אלגוריתמים מגוונים</h3>
+            <p>10 אסטרטגיות חיזוי שונות כולל מספרים חמים, קרים ומאוחרים</p>
+        </div>
+        <div class="feature-card">
+            <h3>📈 סטטיסטיקות מקיפות</h3>
+            <p>מעקב אחר תדירות מספרים, מגמות והסתברויות</p>
+        </div>
+        <div class="feature-card">
+            <h3>🌐 ממשק ידידותי</h3>
+            <p>ממשק ווב מודרני וקל לשימוש עם עיצוב רספונסיבי</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
