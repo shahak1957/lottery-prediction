@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}חיזוי לוטו ישראלי{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🎱 חיזוי לוטו ישראלי</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('index') }}">דף הבית</a></li>
+                <li><a href="{{ url_for('predict') }}">חיזויים</a></li>
+                <li><a href="{{ url_for('statistics') }}">סטטיסטיקות</a></li>
+                <li><a href="{{ url_for('history') }}">היסטוריה</a></li>
+                <li><a href="{{ url_for('add_result') }}">הוספת תוצאה</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>⚠️ <strong>הצהרת אחריות:</strong> אפליקציה זו מיועדת למטרות בידור וחינוך בלבד. תוצאות הלוטו הן אקראיות ולא ניתן לחזות אותן בוודאות. ביצועים עבריים אינם מבטיחים תוצאות עתידיות. אנא הימרו באחריות.</p>
+            <p>© 2026 מערכת חיזוי לוטו ישראלי</p>
+        </div>
+    </footer>
+</body>
+</html>
